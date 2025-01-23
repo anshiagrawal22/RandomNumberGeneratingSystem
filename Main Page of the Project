@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/05/Math-Wallpapers.jpg'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.7); /* Made the box more transparent */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            width: 500px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            font-weight: bold;
+        }
+
+        .button {
+            padding: 15px 25px;
+            margin-top: 10px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 300px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn1 {
+            background-color: #007BFF;
+        }
+
+        .btn2 {
+            background-color: #28A745;
+        }
+
+        .btn3 {
+            background-color: #FFC107;
+            color: black;
+        }
+
+        .btn4 {
+            background-color: #DC3545;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="highlight">Welcome!!!</span> to the <span class="highlight">Random Number Generator</span>, select your choice</h1>
+        <a href="http://127.0.0.1:5500/Random%20number%20generator%20final.html" class="button btn1">Generate a Number</a>
+        <a href="#" class="button btn2">7 Up 7 Down</a>
+        <a href="#" class="button btn3">Tambola</a>
+        <a href="#" class="button btn4">View History</a>
+    </div>
+</body>
+</html>
+
