@@ -1,1 +1,2 @@
 # RandomNumberGeneratingSystem
+The <b>Random Number Generating System</b> is a beginner-friendly team project designed to create a dynamic and interactive platform for generating random numbers and playing a simple game called <b>7Up and 7Down.</b> Built using <b>HTML, CSS, and JavaScript,</b> this project also incorporates <b>DevOps Methodology</b> for effective collaboration, continuous integration, and streamlined deployment processes.
