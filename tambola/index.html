@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambola Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 20px 0;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .cell {
+      padding: 20px;
+      border: 2px solid #2c3e50;
+      background-color: #ecf0f1;
+      border-radius: 4px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .cell.called {
+      background-color: #27ae60;
+      color: white;
+    }
+
+    .button-container {
+      margin: 20px 0;
+    }
+
+    button {
+      background-color: #2980b9;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #3498db;
+    }
+
+    .current-number {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #e74c3c;
+    }
+
+    .tickets {
+      margin: 30px 0;
+    }
+
+    .ticket {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 5px;
+      background-color: #fdfefe;
+      padding: 10px;
+      border: 2px solid #bdc3c7;
+      border-radius: 8px;
+      margin: 10px auto;
+      max-width: 300px;
+    }
+
+    .ticket-cell {
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #ecf0f1;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+
+    .ticket-cell:not(:empty) {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .welcome-screen, .game-screen {
+      display: none;
+    }
+
+    .welcome-screen.active, .game-screen.active {
+      display: block;
+    }
+
+    .welcome-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #ecf0f1;
+    }
+
+    .welcome-container input {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #bdc3c7;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Welcome Screen -->
+  <div class="welcome-screen active" id="welcomeScreen">
+    <div class="welcome-container">
+      <h1>Welcome to Tambola</h1>
+      <input type="text" id="playerName" placeholder="Enter your name" />
+      <button onclick="startGame()">Start Game</button>
+    </div>
+  </div>
+
+  <!-- Game Screen -->
+  <div class="game-screen" id="gameScreen">
+    <div class="container">
+      <h1 id="gameTitle">Tambola Game</h1>
+      <div class="current-number" id="currentNumber">Waiting for the first number...</div>
+      <div class="button-container">
+        <button onclick="generateNumber()">Generate Number</button>
+        <button onclick="resetGame()">Reset Game</button>
+        <button onclick="generateTickets()">Generate Tickets</button>
+      </div>
+      <div class="board" id="board"></div>
+      <div class="tickets" id="tickets"></div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize variables
+    const totalNumbers = 90;
+    const calledNumbers = new Set();
+    const board = document.getElementById('board');
+    const currentNumberDisplay = document.getElementById('currentNumber');
+    const ticketsContainer = document.getElementById('tickets');
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const gameScreen = document.getElementById('gameScreen');
+    const gameTitle = document.getElementById('gameTitle');
+
+    // Show game screen and personalize title
+    function startGame() {
+      const playerName = document.getElementById('playerName').value.trim();
+      if (playerName) {
+        gameTitle.textContent = `Welcome, ${playerName}! Let's Play Tambola!`;
+        welcomeScreen.classList.remove('active');
+        gameScreen.classList.add('active');
+        createBoard();
+      } else {
+        alert('Please enter your name to start the game.');
+      }
+    }
+
+    // Create the board
+    function createBoard() {
+      board.innerHTML = '';
+      for (let i = 1; i <= totalNumbers; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.textContent = i;
+        cell.id = `cell-${i}`;
+        board.appendChild(cell);
+      }
+    }
+
+    // Generate a random number
+    function generateNumber() {
+      if (calledNumbers.size === totalNumbers) {
+        currentNumberDisplay.textContent = 'All numbers have been called!';
+        return;
+      }
+
+      let number;
+      do {
+        number = Math.floor(Math.random() * totalNumbers) + 1;
+      } while (calledNumbers.has(number));
+
+      calledNumbers.add(number);
+      currentNumberDisplay.textContent = `Current Number: ${number}`;
+
+      // Highlight the number on the board
+      const cell = document.getElementById(`cell-${number}`);
+      if (cell) {
+        cell.classList.add('called');
+      }
+
+      // Highlight numbers on tickets
+      highlightTickets(number);
+    }
+
+    // Reset the game
+    function resetGame() {
+      calledNumbers.clear();
+      currentNumberDisplay.textContent = 'Waiting for the first number...';
+      createBoard();
+      ticketsContainer.innerHTML = '';
+    }
+
+    // Generate tickets
+    function generateTickets() {
+      ticketsContainer.innerHTML = '';
+      for (let i = 0; i < 3; i++) { // Generate 3 tickets
+        const ticket = createTicket();
+        ticketsContainer.appendChild(ticket);
+      }
+    }
+
+    // Create a single ticket
+    function createTicket() {
+      const ticket = document.createElement('div');
+      ticket.classList.add('ticket');
+
+      const numbers = Array.from({ length: 90 }, (_, i) => i + 1);
+      shuffle(numbers);
+      const ticketNumbers = numbers.slice(0, 15).sort((a, b) => a - b);
+
+      let ticketIndex = 0;
+      for (let i = 0; i < 27; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('ticket-cell');
+        if (i % 9 < 5 && ticketIndex < ticketNumbers.length) {
+          cell.textContent = ticketNumbers[ticketIndex];
+          ticketIndex++;
+        }
+        ticket.appendChild(cell);
+      }
+
+      return ticket;
+    }
+
+    // Shuffle an array
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    // Highlight numbers on tickets
+    function highlightTickets(number) {
+      const cells = document.querySelectorAll('.ticket-cell');
+      cells.forEach(cell => {
+        if (cell.textContent == number) {
+          cell.style.backgroundColor = '#27ae60';
+          cell.style.color = 'white';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
