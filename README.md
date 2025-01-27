@@ -1,5 +1,5 @@
 # Random Number Generating System🎲
-The Random Number Generating System is a beginner-friendly team project designed to create a dynamic and interactive platform for generating random numbers and playing simple games such as <b>7Up and 7Down, Tambola, and Generate a Number.</b> Additionally, the system includes a feature to <b>view the history</b> of generated numbers and game results. Built using <b>HTML, CSS, and JavaScript,</b> this project also incorporates <b>DevOps Methodology</b> for effective collaboration, continuous integration, and streamlined deployment processes.🚀
+The Random Number Generating System is a beginner-friendly team project designed to create a dynamic and interactive platform for generating random numbers and playing simple games such as <b>7Up and 7Down, Tambola, and Generate a Number.</b> Additionally, the system includes different features. Built using <b>HTML, CSS, and JavaScript,</b> this project also incorporates <b>DevOps Methodology</b> for effective collaboration, continuous integration, and streamlined deployment processes.🚀
 
 ## Technologies Used💻👾
 Frontend: HTML, CSS, JavaScript <br>
