@@ -9,9 +9,10 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f9;
+      background-color: #fab7f1;
       color: #333;
       text-align: center;
+      
     }
 
     h1 {
@@ -123,7 +124,15 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background-color: #ecf0f1;
+      background-color: #fdbdf2;
+    }
+
+    .welcome-container img, .game-screen img {
+      width: 150px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .welcome-container input {
@@ -139,6 +148,7 @@
   <!-- Welcome Screen -->
   <div class="welcome-screen active" id="welcomeScreen">
     <div class="welcome-container">
+      <img src="tambola.jpg.png" alt="Tambola Logo" />
       <h1>Welcome to Tambola</h1>
       <input type="text" id="playerName" placeholder="Enter your name" />
       <button onclick="startGame()">Start Game</button>
@@ -148,6 +158,7 @@
   <!-- Game Screen -->
   <div class="game-screen" id="gameScreen">
     <div class="container">
+      <img src="tambola.jpg.png" alt="Tambola Logo" />
       <h1 id="gameTitle">Tambola Game</h1>
       <div class="current-number" id="currentNumber">Waiting for the first number...</div>
       <div class="button-container">
