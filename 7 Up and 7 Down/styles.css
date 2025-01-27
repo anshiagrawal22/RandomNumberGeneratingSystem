@@ -13,7 +13,9 @@ body {
   margin: 200px auto;
   padding: 20px;
   background: white;
-  border-radius: 20px;
+  background-position: center;
+  border-radius: 20px;  
+  opacity: 90%;
 }
 
 h1 {
